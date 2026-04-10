@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { Logs, PhoneCall, X } from "lucide-react"
-import { Link } from "react-router-dom"
-import { useLocation } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { cn } from "@/lib/utils"
 import logo from "/logo.png"
 import { productsData } from "@/components/modules/product/productsData"

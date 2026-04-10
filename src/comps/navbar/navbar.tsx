@@ -1,4 +1,4 @@
-import * as React from "react"
+import type { ComponentPropsWithoutRef } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { cn } from "@/lib/utils"
 import {
@@ -150,7 +150,7 @@ function ListItem({
   children,
   href,
   ...props
-}: React.ComponentPropsWithoutRef<"li"> & { href: string }) {
+}: ComponentPropsWithoutRef<"li"> & { href: string }) {
   return (
     <li {...props}>
       <NavigationMenuLink asChild>

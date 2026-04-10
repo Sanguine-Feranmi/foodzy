@@ -1,5 +1,5 @@
 import { useState } from "react";
-import React from "react";
+import type { ReactElement } from "react";
 import { Icon } from "lucide-react";
 import { strawberry } from "@lucide/lab";
 import { Cake, Beef, Leaf, Apple, ChevronRight, ShoppingCart } from "lucide-react";
@@ -10,7 +10,7 @@ type Category = {
   id: string
   label: string
   count: number
-  icon: (props: IconProps) => React.ReactElement
+  icon: (props: IconProps) => ReactElement
   images: { src: string; label: string; discount: number }[]
 }
 

@@ -1,4 +1,5 @@
 import { useState } from "react"
+import type { FormEvent } from "react"
 import { Link } from "react-router-dom"
 import { CheckCircle, ShoppingBag } from "lucide-react"
 import { useCart } from "@/context/CartContext"
@@ -57,7 +58,7 @@ export default function Checkout() {
     return Object.keys(e).length === 0
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     if (!validate()) return
     clearCart()
