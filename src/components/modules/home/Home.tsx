@@ -1,3 +1,4 @@
+import PopularProductsSection from "../product/PopularProductsSection";
 import Categories from "./categories";
 import Hero from "./hero";
 
@@ -8,6 +9,9 @@ export default function Home() {
       <div className="">
         <Categories/>
       </div>
+      <div>
+        <PopularProductsSection />
+    </div>
     </div>
   )
 }
