@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTitle,
@@ -46,7 +47,7 @@ export function Cart() {
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-16 h-16 object-contain bg-gray-50 rounded-md border"
+                    className="w-16 h-16 object-cover bg-gray-50 rounded-md border"
                   />
                   <div className="flex-1 min-w-0">
                     <p className="text-xs font-medium text-gray-800 line-clamp-2 leading-snug">
@@ -86,9 +87,11 @@ export function Cart() {
                 <span>Total</span>
                 <span className="text-primary">${total.toFixed(2)}</span>
               </div>
-              <Button asChild className="w-full bg-primary hover:bg-primary/90 text-white">
-                <Link to="/checkout">Proceed to Checkout</Link>
-              </Button>
+              <SheetClose asChild>
+                <Button asChild className="w-full bg-primary hover:bg-primary/90 text-white">
+                  <Link to="/checkout">Proceed to Checkout</Link>
+                </Button>
+              </SheetClose>
             </div>
           </>
         )}

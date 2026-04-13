@@ -200,7 +200,7 @@ export default function Checkout() {
                     <img
                       src={item.image}
                       alt={item.title}
-                      className="w-12 h-12 object-contain bg-gray-50 rounded border"
+                      className="w-12 h-12 object-cover bg-gray-50 rounded border"
                     />
                     <div className="flex-1 min-w-0">
                       <p className="text-xs text-gray-700 line-clamp-1">{item.title}</p>

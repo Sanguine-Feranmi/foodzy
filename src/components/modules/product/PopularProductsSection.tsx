@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react"
+import type { MouseEvent } from "react"
 import { useNavigate } from "react-router-dom"
 import { ShoppingCart, Heart, Eye, X } from "lucide-react"
 import { productsData } from "./productsData"
@@ -24,7 +25,7 @@ export default function PopularProductsSection() {
     return productsData.filter((p) => p.category === selectedCategory)
   }, [selectedCategory])
 
-  const handleAddToCart = (e: React.MouseEvent, product: Product) => {
+  const handleAddToCart = (e: MouseEvent, product: Product) => {
     e.stopPropagation()
     addToCart(product)
     setToastProduct(product)
@@ -124,7 +125,7 @@ export default function PopularProductsSection() {
           {/* RIGHT: product grid */}
           <div className="lg:col-span-3">
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filteredProducts.slice(0, 6).map((product) => (
+              {filteredProducts.slice(0, 4).map((product) => (
                 <div
                   key={product.id}
                   onClick={() => setQuickViewProduct(product)}
@@ -135,7 +136,7 @@ export default function PopularProductsSection() {
                     <img
                       src={product.image}
                       alt={product.title}
-                      className="h-[150px] object-contain transition duration-500 group-hover:scale-110"
+                      className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
                     />
                     {/* Hover actions */}
                     <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">

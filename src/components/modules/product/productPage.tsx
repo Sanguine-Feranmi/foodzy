@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom"
 import { ShoppingCart, SlidersHorizontal, X } from "lucide-react"
 import { productsData } from "./productsData"
 import { useCart } from "@/context/CartContext"
+// import { useSearchParams } from "react-router-dom";
 
 type Filters = {
   category: string
