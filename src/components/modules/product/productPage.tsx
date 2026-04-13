@@ -3,7 +3,6 @@ import { useSearchParams } from "react-router-dom"
 import { ShoppingCart, SlidersHorizontal, X } from "lucide-react"
 import { productsData } from "./productsData"
 import { useCart } from "@/context/CartContext"
-// import { useSearchParams } from "react-router-dom";
 
 type Filters = {
   category: string
@@ -25,6 +24,8 @@ export default function ProductPage() {
   const [tempFilters, setTempFilters] = useState<Filters>(defaultFilters)
   const [appliedFilters, setAppliedFilters] = useState<Filters>(defaultFilters)
   const [addedId, setAddedId] = useState<number | null>(null)
+  const [currentPage, setCurrentPage] = useState(1)
+  const ITEMS_PER_PAGE = 10
 
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {}
@@ -73,6 +74,7 @@ export default function ProductPage() {
 
   const applyFilters = () => {
     setAppliedFilters(tempFilters)
+    setCurrentPage(1)
     setMobileFilterOpen(false)
   }
 
@@ -83,6 +85,7 @@ export default function ProductPage() {
     }
     setTempFilters(reset)
     setAppliedFilters(reset)
+    setCurrentPage(1)
   }
 
   const handleAddToCart = (product: typeof productsData[0]) => {
@@ -259,25 +262,27 @@ export default function ProductPage() {
 
             {/* Scrollable product grid */}
             <div className="overflow-y-auto flex-1">
-              {filteredProducts.length === 0 ? (
-                <div className="flex flex-col items-center justify-center h-full gap-3 text-gray-400">
-                  <ShoppingCart size={48} strokeWidth={1} />
-                  <p className="text-sm">No products match your filters.</p>
-                  <button onClick={resetFilters} className="text-sm text-primary underline">
-                    Reset Filters
-                  </button>
-                </div>
-              ) : (
-                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 pb-4">
-                  {filteredProducts.map((product) => (
+              {(() => {
+                const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE)
+                const safePage = Math.min(currentPage, totalPages || 1)
+                const paged = filteredProducts.slice((safePage - 1) * ITEMS_PER_PAGE, safePage * ITEMS_PER_PAGE)
+                return filteredProducts.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center h-full gap-3 text-gray-400">
+                    <ShoppingCart size={48} strokeWidth={1} />
+                    <p className="text-sm">No products match your filters.</p>
+                    <button onClick={resetFilters} className="text-sm text-primary underline">Reset Filters</button>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 pb-4">
+                    {paged.map((product) => (
                     <div
                       key={product.id}
                       className="bg-white border border-gray-200 rounded-md shadow-sm hover:shadow-md transition overflow-hidden"
                     >
-                      <div className="bg-gray-50 flex items-center justify-center h-[150px] sm:h-[180px]">
+                      <div className="h-[150px] sm:h-[180px] overflow-hidden">
                         <img
                           src={product.image} alt={product.title}
-                          className="h-[110px] sm:h-[130px] object-contain"
+                          className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="p-3 sm:p-4 text-center">
@@ -308,20 +313,48 @@ export default function ProductPage() {
                       </div>
                     </div>
                   ))}
-                </div>
-              )}
+                  </div>
+                )
+              })()}
             </div>
 
             {/* Pagination */}
-            <div className="flex justify-center pt-4 gap-2 flex-wrap flex-shrink-0">
-              <button className="px-3 py-1 border border-gray-200 text-gray-500 rounded hover:bg-gray-100 text-sm">Previous</button>
-              {[1, 2, 3].map((n) => (
-                <button key={n} className={`px-3 py-1 rounded text-sm ${n === 1 ? "bg-primary text-white" : "border border-gray-200 text-gray-500 hover:bg-gray-100"}`}>
-                  {n}
-                </button>
-              ))}
-              <button className="px-3 py-1 border border-gray-200 text-gray-500 rounded hover:bg-gray-100 text-sm">Next</button>
-            </div>
+            {(() => {
+              const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE)
+              const safePage = Math.min(currentPage, totalPages || 1)
+              if (totalPages <= 1) return null
+              return (
+                <div className="flex justify-center pt-4 gap-2 flex-wrap flex-shrink-0">
+                  <button
+                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                    disabled={safePage === 1}
+                    className="px-3 py-1 border border-gray-200 text-gray-500 rounded hover:bg-gray-100 text-sm disabled:opacity-40 disabled:cursor-not-allowed"
+                  >
+                    Previous
+                  </button>
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
+                    <button
+                      key={n}
+                      onClick={() => setCurrentPage(n)}
+                      className={`px-3 py-1 rounded text-sm ${
+                        safePage === n
+                          ? "bg-primary text-white"
+                          : "border border-gray-200 text-gray-500 hover:bg-gray-100"
+                      }`}
+                    >
+                      {n}
+                    </button>
+                  ))}
+                  <button
+                    onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                    disabled={safePage === totalPages}
+                    className="px-3 py-1 border border-gray-200 text-gray-500 rounded hover:bg-gray-100 text-sm disabled:opacity-40 disabled:cursor-not-allowed"
+                  >
+                    Next
+                  </button>
+                </div>
+              )
+            })()}
           </div>
         </div>
       </div>
