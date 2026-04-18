@@ -52,6 +52,7 @@ export default function ProductPage() {
     }
     setTempFilters(init)
     setAppliedFilters(init)
+    setCurrentPage(1)
   }, [priceRange.min, priceRange.max, searchParams])
 
   const filteredProducts = useMemo(() => {
@@ -261,7 +262,7 @@ export default function ProductPage() {
             </div>
 
             {/* Scrollable product grid */}
-            <div className="overflow-y-auto flex-1">
+            <div className="overflow-y-auto scrollbar-hide flex-1">
               {(() => {
                 const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE)
                 const safePage = Math.min(currentPage, totalPages || 1)

@@ -6,14 +6,48 @@ import { productsData } from "./productsData"
 import type { Product } from "./productsData"
 import { useCart } from "@/context/CartContext"
 
-export default function PopularProductsSection() {
+type BannerConfig = {
+  src: string
+  alt: string
+  title: string
+  highlight: string
+  subtitle: string
+  buttonLabel: string
+  buttonRoute: string
+}
+
+const defaultBanner: BannerConfig = {
+  src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80",
+  alt: "Juicy Fruits",
+  title: "Juicy",
+  highlight: "FRUITS",
+  subtitle: "100% Natural",
+  buttonLabel: "Shop Now",
+  buttonRoute: "/products",
+}
+
+interface PopularProductsSectionProps {
+  products?: Product[]
+  maxVisible?: number
+  sectionTitle?: string
+  sectionSubtitle?: string
+  banner?: BannerConfig
+}
+
+export default function PopularProductsSection({
+  products = productsData,
+  maxVisible = 4,
+  sectionTitle = "Popular Products",
+  sectionSubtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore lacus vel facilisis.",
+  banner = defaultBanner,
+}: PopularProductsSectionProps) {
   const navigate = useNavigate()
   const { addToCart } = useCart()
 
   const categories = useMemo(() => {
-    const uniqueCats = [...new Set(productsData.map((p) => p.category))]
+    const uniqueCats = [...new Set(products.map((p) => p.category))]
     return ["All", ...uniqueCats]
-  }, [])
+  }, [products])
 
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [filterOpen, setFilterOpen] = useState(true)
@@ -21,9 +55,9 @@ export default function PopularProductsSection() {
   const [toastProduct, setToastProduct] = useState<Product | null>(null)
 
   const filteredProducts = useMemo(() => {
-    if (selectedCategory === "All") return productsData
-    return productsData.filter((p) => p.category === selectedCategory)
-  }, [selectedCategory])
+    if (selectedCategory === "All") return products
+    return products.filter((p) => p.category === selectedCategory)
+  }, [selectedCategory, products])
 
   const handleAddToCart = (e: MouseEvent, product: Product) => {
     e.stopPropagation()
@@ -38,10 +72,9 @@ export default function PopularProductsSection() {
 
         {/* Header */}
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold text-gray-900">Popular Products</h2>
+          <h2 className="text-3xl font-bold text-gray-900">{sectionTitle}</h2>
           <p className="text-gray-500 mt-2 max-w-xl mx-auto text-sm">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore lacus vel facilisis.
+            {sectionSubtitle}
           </p>
         </div>
 
@@ -102,21 +135,21 @@ export default function PopularProductsSection() {
             {/* Banner — fills remaining height */}
             <div className="relative flex-1 min-h-[200px]">
               <img
-                src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80"
-                alt="Juicy Fruits"
+                src={banner.src}
+                alt={banner.alt}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-black/50 flex flex-col justify-center px-6">
                 <h3 className="text-white text-3xl font-bold leading-tight">
-                  Juicy <br />
-                  <span className="text-yellow-300">FRUITS</span>
+                  {banner.title} <br />
+                  <span className="text-yellow-300">{banner.highlight}</span>
                 </h3>
-                <p className="text-white mt-3 text-sm">100% Natural</p>
+                <p className="text-white mt-3 text-sm">{banner.subtitle}</p>
                 <button
-                  onClick={() => navigate("/products")}
+                  onClick={() => navigate(banner.buttonRoute)}
                   className="mt-5 w-fit bg-primary text-white px-5 py-2 rounded-md text-sm font-semibold hover:bg-primary/90 transition"
                 >
-                  Shop Now
+                  {banner.buttonLabel}
                 </button>
               </div>
             </div>
@@ -125,7 +158,7 @@ export default function PopularProductsSection() {
           {/* RIGHT: product grid */}
           <div className="lg:col-span-3">
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filteredProducts.slice(0, 4).map((product) => (
+              {filteredProducts.slice(0, maxVisible).map((product) => (
                 <div
                   key={product.id}
                   onClick={() => setQuickViewProduct(product)}

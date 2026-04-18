@@ -14,7 +14,7 @@ type Category = {
   images: { src: string; label: string; discount: number }[]
 }
 
-const categories: Category[] = [
+const categoriesDefault: Category[] = [
   {
     id: "cake-milk",
     label: "Cake & Milk",
@@ -109,8 +109,13 @@ const categories: Category[] = [
   },
 ];
 
-export default function Categories() {
-  const [activeId, setActiveId] = useState("cake-milk");
+interface CategoriesProps {
+  data?: Category[]
+  defaultActiveId?: string
+}
+
+export default function Categories({ data: categories = categoriesDefault, defaultActiveId = "cake-milk" }: CategoriesProps) {
+  const [activeId, setActiveId] = useState(defaultActiveId);
   const [animating, setAnimating] = useState(false);
 
   const activeCategory = categories.find((c) => c.id === activeId);

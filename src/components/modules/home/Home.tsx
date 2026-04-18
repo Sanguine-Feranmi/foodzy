@@ -1,6 +1,7 @@
 import PopularProductsSection from "../product/PopularProductsSection";
 import PromoAndFeaturesSection from "../product/PromoAndFeaturesSection";
 import Categories from "./categories";
+import DealSection from "./DealSection";
 import Hero from "./hero";
 
 export default function Home() {
@@ -15,6 +16,9 @@ export default function Home() {
     </div>
     <div>
       <PromoAndFeaturesSection />
+    </div>
+    <div>
+      <DealSection />
     </div>
     </div>
   )

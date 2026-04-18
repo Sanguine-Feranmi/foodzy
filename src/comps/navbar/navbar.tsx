@@ -1,6 +1,7 @@
 import type { ComponentPropsWithoutRef } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { cn } from "@/lib/utils"
+import { productsData } from "@/components/modules/product/productsData"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -19,8 +20,6 @@ const categoryLinks = [
   { title: "Snacks", href: "/category/snacks", description: "Chips, nuts, and healthy snack options." },
   { title: "Beverages", href: "/category/beverages", description: "Juices, teas, coffees and more." },
 ]
-
-import { productsData } from "@/components/modules/product/productsData"
 
 const productCategories = [...new Set(productsData.map((p) => p.category))]
 
