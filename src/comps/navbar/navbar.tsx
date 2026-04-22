@@ -59,9 +59,11 @@ export default function Navbar() {
 
         {/* CATEGORY */}
         <NavigationMenuItem>
-          <NavigationMenuTrigger className={cn(pathname.startsWith("/category") && "text-primary")}>
-            Category
-          </NavigationMenuTrigger>
+          <Link to="/category">
+            <NavigationMenuTrigger className={cn(pathname.startsWith("/category") && "text-primary")}>
+              Category
+            </NavigationMenuTrigger>
+          </Link>
           <NavigationMenuContent>
             <ul className="grid w-[500px] gap-2 grid-cols-2 p-4">
               {categoryLinks.map((item) => (
@@ -93,9 +95,11 @@ export default function Navbar() {
 
         {/* PAGES */}
         <NavigationMenuItem>
-          <NavigationMenuTrigger className={cn(pathname.startsWith("/pages") && "text-primary")}>
-            Pages
-          </NavigationMenuTrigger>
+          <Link to="/pages">
+            <NavigationMenuTrigger className={cn(pathname.startsWith("/pages") && "text-primary")}>
+              Pages
+            </NavigationMenuTrigger>
+          </Link>
           <NavigationMenuContent>
             <ul className="grid w-[450px] gap-2 grid-cols-2 p-4">
               {pageLinks.map((item) => (
@@ -109,9 +113,11 @@ export default function Navbar() {
 
         {/* BLOGS */}
         <NavigationMenuItem>
-          <NavigationMenuTrigger className={cn(pathname.startsWith("/blog") && "text-primary")}>
-            Blogs
-          </NavigationMenuTrigger>
+          <Link to="/blog">
+            <NavigationMenuTrigger className={cn(pathname.startsWith("/blog") && "text-primary")}>
+              Blogs
+            </NavigationMenuTrigger>
+          </Link>
           <NavigationMenuContent>
             <ul className="grid w-[420px] gap-2 grid-cols-2 p-4">
               {blogLinks.map((item) => (
@@ -125,9 +131,11 @@ export default function Navbar() {
 
         {/* ELEMENTS */}
         <NavigationMenuItem>
-          <NavigationMenuTrigger className={cn(pathname.startsWith("/elements") && "text-primary")}>
-            Elements
-          </NavigationMenuTrigger>
+          <Link to="/elements">
+            <NavigationMenuTrigger className={cn(pathname.startsWith("/elements") && "text-primary")}>
+              Elements
+            </NavigationMenuTrigger>
+          </Link>
           <NavigationMenuContent>
             <ul className="grid w-[450px] gap-2 grid-cols-2 p-4">
               {elementLinks.map((item) => (

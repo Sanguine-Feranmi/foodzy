@@ -25,6 +25,10 @@ import AccountPage from './pages/account/AccountPage'
 import WishlistPage from './pages/wishlist/WishlistPage'
 import Careers from './pages/careers/Careers'
 import IconsPage from './pages/elements/icons/IconsPage'
+import BlogLanding from './pages/blog/BlogLanding'
+import CategoryLanding from './pages/category/CategoryLanding'
+import PagesLanding from './pages/PagesLanding'
+import ElementsLanding from './pages/ElementsLanding'
 
 function App() {
   return (
@@ -42,6 +46,10 @@ function App() {
             <Route path="/docs" element={<Docs />} />
             <Route path="/docs/installation" element={<Docs />} />
             <Route path="/docs/primitives/typography" element={<Docs />} />
+            <Route path="/blog" element={<BlogLanding />} />
+            <Route path="/category" element={<CategoryLanding />} />
+            <Route path="/pages" element={<PagesLanding />} />
+            <Route path="/elements" element={<ElementsLanding />} />
             <Route path="/pages/about" element={<AboutUs />} />
             <Route path="/pages/contact" element={<Contact />} />
             <Route path="/pages/faq" element={<FAQ />} />

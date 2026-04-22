@@ -8,7 +8,7 @@ import { Cart } from "./cart"
 
 export default function Head() {     
   return (
-    < >
+    <div className="pt-[60px]">
       <div className="justify-between flex gap-4 lg:w-[80%] w-full mx-auto items-center px-6"> 
         <div className="">
             <img src={logotxt} alt="Logo with text" className="w-40 mx-auto" />
@@ -27,6 +27,6 @@ export default function Head() {
 
         </div>
       </div>
-    </>
+    </div>
   )
 }

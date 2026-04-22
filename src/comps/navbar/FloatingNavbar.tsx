@@ -50,6 +50,7 @@ export default function FloatingNavbar({
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > scrollThreshold)
     window.addEventListener("scroll", onScroll)
+    onScroll()
     return () => window.removeEventListener("scroll", onScroll)
   }, [scrollThreshold])
 

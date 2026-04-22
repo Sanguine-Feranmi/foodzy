@@ -203,6 +203,16 @@ export default function ProductPage() {
     <div className="w-full bg-white py-6 px-4 md:px-10">
       <div className="max-w-7xl mx-auto">
 
+        {/* Page Header with Breadcrumb */}
+        <div className="mb-6">
+          <nav className="text-sm text-gray-500 mb-2">
+            <span>Home</span> <span className="mx-2">/</span> <span className="text-gray-800 font-medium">Products</span>
+          </nav>
+          <h1 className="text-3xl font-bold text-gray-900">Products</h1>
+          <p className="text-gray-500 mt-1 text-sm">Browse our complete collection of fresh and quality products.</p>
+          <div className="w-12 h-1 bg-primary rounded-full mt-3" />
+        </div>
+
         {/* Mobile top bar */}
         <div className="flex items-center justify-between mb-4 lg:hidden">
           <p className="text-sm text-gray-600">

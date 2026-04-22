@@ -1,7 +1,9 @@
 import { ArrowRight } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import noodles from '/noodles.png'
 
 export default function Hero () {
+    const navigate = useNavigate()
     return(
         <>
             <div className="w-full relative rounded-lg overflow-hidden">
@@ -20,7 +22,9 @@ export default function Hero () {
                         <p className="text-lg capitalize text-gray-400 italic  font-light">
                             Today's best deal.
                         </p>
-                        <button className="flex items-center gap-2 bg-[#CD7A1D] text-white pl-2 pr-6 py-2 rounded-full shadow-lg font-semibold transition cursor-pointer hover:shadow-xl hover:animate-pulse">   
+                        <button 
+                            onClick={() => navigate('/products')}
+                            className="flex items-center gap-2 bg-[#CD7A1D] text-white pl-2 pr-6 py-2 rounded-full shadow-lg font-semibold transition cursor-pointer hover:shadow-xl hover:animate-pulse">   
                             <span className="bg-white rounded-full p-1">
                               <ArrowRight size={18} color="#CD7A1D" />
                             </span>

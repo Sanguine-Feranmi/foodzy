@@ -18,7 +18,7 @@ type NavLink = {
 const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
   {
-    label: "Category", href: "#",
+    label: "Category", href: "/category",
     children: [
       { label: "Fruits & Vegetables", href: "/category/fruits-vegetables" },
       { label: "Meat & Seafood", href: "/category/meat-seafood" },
@@ -36,7 +36,7 @@ const navLinks: NavLink[] = [
     })),
   },
   {
-    label: "Pages", href: "#",
+    label: "Pages", href: "/pages",
     children: [
       { label: "About Us", href: "/pages/about" },
       { label: "Contact", href: "/pages/contact" },
@@ -44,7 +44,7 @@ const navLinks: NavLink[] = [
     ],
   },
   {
-    label: "Blogs", href: "#",
+    label: "Blogs", href: "/blog",
     children: [
       { label: "Healthy Eating", href: "/blog/healthy-eating" },
       { label: "Recipes", href: "/blog/recipes" },
@@ -52,7 +52,7 @@ const navLinks: NavLink[] = [
     ],
   },
   {
-    label: "Elements", href: "#",
+    label: "Elements", href: "/elements",
     children: [
       { label: "Buttons", href: "/elements/buttons" },
       { label: "Cards", href: "/elements/cards" },
@@ -205,8 +205,8 @@ export default function Rnavbar({ position = "top" }: RnavbarProps) {
               <div key={link.label}>
                 <div className="flex items-center justify-between px-6 py-3 border-b border-gray-50">
                   <Link
-                    to={link.href === "#" ? pathname : link.href}
-                    onClick={() => !link.children && setMenuOpen(false)}
+                    to={link.href}
+                    onClick={() => { setMenuOpen(false); setOpenSubmenu(null) }}
                     className={cn(
                       "text-sm font-medium",
                       pathname === link.href ? "text-primary" : "text-gray-700"
@@ -216,7 +216,7 @@ export default function Rnavbar({ position = "top" }: RnavbarProps) {
                   </Link>
                   {link.children && (
                     <button
-                      onClick={() => toggleSubmenu(link.label)}
+                      onClick={(e) => { e.stopPropagation(); toggleSubmenu(link.label) }}
                       className="text-gray-400 text-xs px-2"
                     >
                       {openSubmenu === link.label ? "▲" : "▼"}
@@ -229,7 +229,7 @@ export default function Rnavbar({ position = "top" }: RnavbarProps) {
                       <Link
                         key={child.label}
                         to={child.href}
-                        onClick={() => setMenuOpen(false)}
+                        onClick={() => { setMenuOpen(false); setOpenSubmenu(null) }}
                         className="px-10 py-2 text-sm text-gray-600 hover:text-primary border-b border-gray-100 transition"
                       >
                         {child.label}

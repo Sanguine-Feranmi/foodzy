@@ -1,12 +1,10 @@
+import { Heart } from "lucide-react"
+import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
-// import { Input } from "@/components/ui/input"
-// import { Label } from "@/components/ui/label"
 import {
     Sheet,
     SheetClose,
     SheetContent,
-    SheetDescription,
-    SheetFooter,
     SheetHeader,
     SheetTitle,
     SheetTrigger,
@@ -18,29 +16,23 @@ export function WishList() {
             <SheetTrigger asChild>
                 <Button variant="mine">Wishlist</Button>
             </SheetTrigger>
-            <SheetContent side="left">
-                <SheetHeader>
-                    <SheetTitle>Edit profile</SheetTitle>
-                    <SheetDescription>
-                        Make changes to your profile here. Click save when you&apos;re done.
-                    </SheetDescription>
+            <SheetContent side="left" className="flex flex-col w-[340px] sm:w-[400px] p-0">
+                <SheetHeader className="px-5 py-4 border-b">
+                    <SheetTitle className="flex items-center gap-2">
+                        <Heart size={18} /> Wishlist
+                    </SheetTitle>
                 </SheetHeader>
-                {/* <div className="grid flex-1 auto-rows-min gap-6 px-4">
-                    <div className="grid gap-3">
-                        <Label htmlFor="sheet-demo-name">Name</Label>
-                        <Input id="sheet-demo-name" defaultValue="Pedro Duarte" />
-                    </div>
-                    <div className="grid gap-3">
-                        <Label htmlFor="sheet-demo-username">Username</Label>
-                        <Input id="sheet-demo-username" defaultValue="@peduarte" />
-                    </div>
-                </div> */}
-                <SheetFooter>
-                    <Button type="submit">Save changes</Button>
+                <div className="flex-1 flex flex-col items-center justify-center gap-3 text-gray-400 px-5">
+                    <Heart size={48} strokeWidth={1} />
+                    <p className="text-sm">Your wishlist is empty</p>
+                </div>
+                <div className="border-t px-5 py-4">
                     <SheetClose asChild>
-                        <Button variant="outline">Close</Button>
+                        <Button asChild className="w-full bg-primary hover:bg-primary/90 text-white">
+                            <Link to="/products">Browse Products</Link>
+                        </Button>
                     </SheetClose>
-                </SheetFooter>
+                </div>
             </SheetContent>
         </Sheet>
     )
